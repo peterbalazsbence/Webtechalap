@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<title>Számkitaláló játék</title>
+
+<style>
+body{
+    background-color:#121212;
+    color:white;
+    font-family:Arial;
+    text-align:center;
+    padding-top:50px;
+}
+
+input{
+    padding:10px;
+    font-size:16px;
+    width:200px;
+}
+
+button{
+    padding:10px 20px;
+    font-size:16px;
+    margin-left:10px;
+    cursor:pointer;
+}
+
+#tippek{
+    margin-top:30px;
+    width:400px;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:left;
+}
+
+.tippsor{
+    background:#1e1e1e;
+    padding:8px;
+    margin:5px 0;
+    border-radius:5px;
+}
+</style>
+
+</head>
+<body>
+
+<h1>Számkitaláló játék </h1>
+<p>Tippelj egy számot 0 és 1000000 között!</p>
+
+<input id="tippInput" type="number" placeholder="Írd be a tipped">
+<button onclick="tipp()">Tipp</button>
+
+<p id="marad"></p>
+
+<div id="tippek"></div>
+
+<script>
+
+let megoldas = Math.floor(Math.random()*1000001);
+let maxTippek = 20;
+let tippszam = 0;
+let vege = false;
+
+document.getElementById("marad").innerText = "Próbálkozások: 0 / 20";
+
+function tipp(){
+
+    if(vege) return;
+
+    let input = document.getElementById("tippInput").value;
+    let szam = parseInt(input);
+
+    if(isNaN(szam)){
+        alert("Kérlek számot adj meg!");
+        return;
+    }
+
+    tippszam++;
+
+    let uzenet="";
+
+    if(szam>megoldas){
+        uzenet="A megoldás kisebb";
+    }
+    else if(szam<megoldas){
+        uzenet="A megoldás nagyobb";
+    }
+    else{
+        uzenet="Siker, "+tippszam+" lépésből eltaláltad! 🎉";
+        vege=true;
+    }
+
+    let sor=document.createElement("div");
+    sor.className="tippsor";
+    sor.innerText=tippszam+". tipp: "+szam+" → "+uzenet;
+
+    document.getElementById("tippek").appendChild(sor);
+
+    document.getElementById("marad").innerText="Próbálkozások: "+tippszam+" / 20";
+
+    if(tippszam>=maxTippek && !vege){
+        alert("Sajnos nem sikerült! A megoldás: "+megoldas);
+        vege=true;
+    }
+
+    document.getElementById("tippInput").value="";
+}
+
+</script>
+
+</body>
+</html>
