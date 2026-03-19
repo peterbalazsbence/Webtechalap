@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Teendő lista</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        input {
+            padding: 10px;
+            width: 200px;
+        }
+
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Teendő lista</h1>
+
+    <input type="text" id="todo-input" placeholder="Új teendő...">
+    <button id="add-btn">Hozzáadás</button>
+
+    <ul id="todo-list"></ul>
+
+    <script>
+        const input = document.getElementById("todo-input");
+        const button = document.getElementById("add-btn");
+        const list = document.getElementById("todo-list");
+
+        button.addEventListener("click", function() {
+            const text = input.value;
+
+            if (text === "") return;
+
+            const li = document.createElement("li");
+            li.textContent = text;
+
+
+            li.addEventListener("click", function() {
+                this.classList.toggle("completed");
+            });
+
+            list.appendChild(li);
+
+            input.value = "";
+        });
+    </script>
+
+</body>
+</html>
